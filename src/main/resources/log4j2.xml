@@ -1,0 +1,40 @@
+<Configuration status="DEBUG" monitorInterval="300">
+    <properties>
+        <property name="LOG_HOME">/logs</property>
+        <property name="FILE_NAME">log</property>
+    </properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5p - %m %l%n"/>
+        </Console>
+        <RollingRandomAccessFile name="RollingFile"
+                                 fileName="${LOG_HOME}/${FILE_NAME}.log"
+                                 filePattern="${LOG_HOME}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5p - %m %l%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- 全局level 设为 info -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+        <!-- 自己项目的 level 设为debug  -->
+        <Logger name="com.qiuzq" level="debug" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!-- Spring -->
+        <!--<logger name="org.springframework" level="WARN"/>-->
+        <!-- 展示Mybatis的SQL日志 -->
+        <!--<logger name="org.apache.ibatis" level="DEBUG"/>-->
+        <!--<logger name="com.qiuzq.mapper" level="DEBUG"/>-->
+    </Loggers>
+</Configuration>

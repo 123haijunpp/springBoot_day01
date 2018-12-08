@@ -1,0 +1,1 @@
+<base href="${req.contextPath}/">
