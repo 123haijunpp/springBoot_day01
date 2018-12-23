@@ -18,7 +18,6 @@ import javax.servlet.annotation.WebInitParam;
 )
 @Slf4j
 public class DruidStatFilter extends WebStatFilter {
-
     public DruidStatFilter() {
         log.info("******  执行DruidStatFilter...  ******");
     }

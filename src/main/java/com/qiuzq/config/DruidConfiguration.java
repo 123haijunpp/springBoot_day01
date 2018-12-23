@@ -20,7 +20,7 @@ public class DruidConfiguration {
      * druid数据源状态监控.
      */
     @Bean
-    public ServletRegistrationBean druidStatViewServle() {
+    public ServletRegistrationBean druidStatViewServlet() {
         // 创建Servlet注册实体
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         // 设置ip白名单

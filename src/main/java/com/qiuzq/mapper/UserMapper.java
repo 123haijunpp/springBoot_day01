@@ -1,11 +1,13 @@
 package com.qiuzq.mapper;
 
 import com.qiuzq.model.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 
 import java.util.List;
 
+@Mapper
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 

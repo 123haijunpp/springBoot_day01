@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qiuzq.mapper.LoggerModelMapper" >
+  <resultMap id="BaseResultMap" type="com.qiuzq.model.LoggerModel" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="client_ip" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="uri" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="method" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="session_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="return_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="http_status_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="time_consuming" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.qiuzq.model.LoggerModelWithBLOBs" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="client_ip" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="uri" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="method" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="session_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="return_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="http_status_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="time_consuming" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="param_data" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+      <arg column="return_data" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, client_ip, uri, type, method, session_id, time, return_time, http_status_code, 
+    time_consuming
+  </sql>
+  <sql id="Blob_Column_List" >
+    param_data, return_data
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_logger
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_logger
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qiuzq.model.LoggerModelWithBLOBs" >
+    insert into t_logger (id, client_ip, uri, 
+      type, method, session_id, 
+      time, return_time, http_status_code, 
+      time_consuming, param_data, return_data
+      )
+    values (#{id,jdbcType=INTEGER}, #{clientIp,jdbcType=VARCHAR}, #{uri,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{time,jdbcType=TIMESTAMP}, #{returnTime,jdbcType=VARCHAR}, #{httpStatusCode,jdbcType=VARCHAR}, 
+      #{timeConsuming,jdbcType=INTEGER}, #{paramData,jdbcType=LONGVARCHAR}, #{returnData,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qiuzq.model.LoggerModelWithBLOBs" >
+    insert into t_logger
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="clientIp != null" >
+        client_ip,
+      </if>
+      <if test="uri != null" >
+        uri,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="returnTime != null" >
+        return_time,
+      </if>
+      <if test="httpStatusCode != null" >
+        http_status_code,
+      </if>
+      <if test="timeConsuming != null" >
+        time_consuming,
+      </if>
+      <if test="paramData != null" >
+        param_data,
+      </if>
+      <if test="returnData != null" >
+        return_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null" >
+        #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnTime != null" >
+        #{returnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="httpStatusCode != null" >
+        #{httpStatusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="timeConsuming != null" >
+        #{timeConsuming,jdbcType=INTEGER},
+      </if>
+      <if test="paramData != null" >
+        #{paramData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="returnData != null" >
+        #{returnData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qiuzq.model.LoggerModelWithBLOBs" >
+    update t_logger
+    <set >
+      <if test="clientIp != null" >
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="uri != null" >
+        uri = #{uri,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="httpStatusCode != null" >
+        http_status_code = #{httpStatusCode,jdbcType=VARCHAR},
+      </if>
+      <if test="timeConsuming != null" >
+        time_consuming = #{timeConsuming,jdbcType=INTEGER},
+      </if>
+      <if test="paramData != null" >
+        param_data = #{paramData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="returnData != null" >
+        return_data = #{returnData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qiuzq.model.LoggerModelWithBLOBs" >
+    update t_logger
+    set client_ip = #{clientIp,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      return_time = #{returnTime,jdbcType=VARCHAR},
+      http_status_code = #{httpStatusCode,jdbcType=VARCHAR},
+      time_consuming = #{timeConsuming,jdbcType=INTEGER},
+      param_data = #{paramData,jdbcType=LONGVARCHAR},
+      return_data = #{returnData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qiuzq.model.LoggerModel" >
+    update t_logger
+    set client_ip = #{clientIp,jdbcType=VARCHAR},
+      uri = #{uri,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      return_time = #{returnTime,jdbcType=VARCHAR},
+      http_status_code = #{httpStatusCode,jdbcType=VARCHAR},
+      time_consuming = #{timeConsuming,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

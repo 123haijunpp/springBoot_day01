@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +46,38 @@ public class LoginController {
         pageBean = new PageBean();
         pageBean.setRequest(request);
         return userService.list(user, pageBean);
+    }
+
+    @RequestMapping(value = {"/login"}, produces = {"text/plain;chaset=UTF-8"})
+    @ResponseBody
+    public String doFastJson(User user, HttpSession session) {
+        // 登录成功
+        boolean flag = true;
+        String result = "登录失败！";
+
+        // 用户不存在
+        if (null == user.getUsername()) {
+            flag = false;
+            result = "用户不存在，登录失败！";
+        } else if (!"123".equals(user.getPassword())) {
+            flag = false;
+            result = "密码错误，登录失败！";
+        }
+
+        if ("admin".equals(user.getUsername()) && "123".equals(user.getPassword()) && flag) {
+            // 将用户写入session
+            session.setAttribute("_session_user", user);
+            result = "登录成功！";
+        }
+        return result;
+    }
+
+    @RequestMapping("/doFastJsonNullList")
+    @ResponseBody
+    public List<User> doFastJsonNullList(User user, PageBean pageBean, HttpServletRequest request) {
+        List list = new ArrayList();
+        System.out.println(list);
+        return list;
     }
 
     @ResponseBody
