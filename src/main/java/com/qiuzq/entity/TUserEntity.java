@@ -3,6 +3,9 @@ package com.qiuzq.entity;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -16,10 +19,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "t_user", schema = "springboot", catalog = "")
 @ToString
-public class TUserEntity {
+public class TUserEntity implements Serializable {
+
     private int id;
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
+    @Email
+    @NotBlank
     private String email;
     private Integer useable;
     private Timestamp addtime;

@@ -41,4 +41,9 @@ public interface UserJPA extends JpaRepository<TUserEntity, Long>, JpaSpecificat
     @Query(value = "delete from t_user where username = ?1 and password = ?2 ", nativeQuery = true)
     void deleteQuery(String username, String password);
 
+    @Transactional(rollbackOn = Exception.class)
+    @Modifying
+    @Query(value = "insert into t_user(username,password) values(?1,?2)", nativeQuery = true)
+    void inser(String username, String password);
+
 }

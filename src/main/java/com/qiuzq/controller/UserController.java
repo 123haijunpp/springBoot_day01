@@ -6,6 +6,7 @@ import com.qiuzq.jpa.UserJPA;
 import com.qiuzq.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,6 +65,7 @@ public class UserController {
         if (save != null) {
             return "增加成功！";
         }
+
         return "增加失败！";
     }
 
@@ -77,6 +79,15 @@ public class UserController {
         jsonData.put("data", user);
         request.setAttribute(LoggerUtils.LOGGER_RETURN, jsonData);
         return jsonData;
+    }
+
+    @GetMapping("/customSave")
+    public JSONObject customSave(TUserEntity user, HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg", "customSave");
+        userJPA.inser(user.getUsername(), user.getPassword());
+        request.setAttribute(LoggerUtils.LOGGER_RETURN, jsonObject);
+        return jsonObject;
     }
 
 }
